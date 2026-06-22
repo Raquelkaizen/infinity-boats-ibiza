@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFINITY BOATS IBIZA · Fleet Catalogue</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Poppins:wght@100;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--noir:#0A0A0A;--blanc:#FFFFFF;--gold:#B8A97A;--navy:#1A2744;--cream:#F4F4F2;}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--noir);color:var(--blanc);font-family:'Poppins',sans-serif;font-weight:300;line-height:1.8;min-height:100vh;overflow-x:hidden}
+
+/* TOP BAR */
+#topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:0.5px solid rgba(184,169,122,0.25);position:sticky;top:0;z-index:100;background:var(--noir)}
+.logo-wrap{display:flex;flex-direction:column;align-items:flex-start}
+.logo-main{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.55rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--blanc);line-height:1}
+.logo-rule{width:100%;height:0.5px;background:var(--gold);margin:3px 0}
+.logo-sub{font-family:'Poppins',sans-serif;font-weight:100;font-size:0.52rem;letter-spacing:0.6em;text-transform:uppercase;color:var(--blanc)}
+.topbar-right{display:flex;align-items:center;gap:24px}
+.lang-select{background:transparent;border:0.5px solid rgba(184,169,122,0.4);color:var(--gold);font-family:'Poppins',sans-serif;font-weight:300;font-size:0.65rem;letter-spacing:0.45em;padding:6px 12px;cursor:pointer;appearance:none;outline:none}
+.lang-select option{background:var(--noir);color:var(--blanc)}
+.wa-curious{display:flex;align-items:center;gap:8px;background:transparent;border:0.5px solid var(--gold);color:var(--gold);font-family:'Poppins',sans-serif;font-weight:300;font-size:0.62rem;letter-spacing:0.45em;text-transform:uppercase;padding:8px 20px;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.wa-curious:hover{background:var(--gold);color:var(--noir)}
+
+/* MAIN */
+main{padding:48px}
+
+/* TYPOGRAPHY */
+.section-eyebrow{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2.2rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:8px}
+.section-italic{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:1.1rem;color:var(--gold);letter-spacing:0.05em;margin-bottom:40px}
+
+/* FILTERS */
+#filter-bar{background:rgba(255,255,255,0.03);border:0.5px solid rgba(184,169,122,0.15);padding:28px 32px;margin-bottom:40px}
+.filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-bottom:20px}
+.filter-group label{display:block;font-family:'Poppins',sans-serif;font-weight:300;font-size:0.58rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.filter-group select,.filter-group input{width:100%;background:transparent;border:0.5px solid rgba(184,169,122,0.3);color:var(--blanc);font-family:'Poppins',sans-serif;font-weight:300;font-size:0.75rem;padding:8px 12px;outline:none;appearance:none}
+.filter-group select option{background:var(--noir)}
+.filter-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.sort-wrap{display:flex;align-items:center;gap:10px;margin-left:auto}
+.sort-label{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.58rem;letter-spacing:0.45em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+.sort-select{background:transparent;border:0.5px solid rgba(184,169,122,0.3);color:var(--blanc);font-family:'Poppins',sans-serif;font-weight:300;font-size:0.72rem;padding:6px 12px;outline:none;appearance:none}
+.sort-select option{background:var(--noir)}
+.btn-reset{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:rgba(255,255,255,0.4);background:none;border:0.5px solid rgba(255,255,255,0.2);padding:8px 18px;cursor:pointer;transition:all 0.3s}
+.btn-reset:hover{color:var(--blanc);border-color:var(--blanc)}
+.results-count{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.62rem;letter-spacing:0.3em;color:rgba(255,255,255,0.4)}
+
+/* FLEET GRID */
+#fleet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+
+/* EMPTY / LOADING */
+.state-box{grid-column:1/-1;text-align:center;padding:80px 48px}
+.state-box .st-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.8rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:12px;color:rgba(255,255,255,0.2)}
+.state-box .st-sub{font-size:0.75rem;letter-spacing:0.1em;color:rgba(255,255,255,0.2)}
+.loading-bar{width:120px;height:0.5px;background:rgba(184,169,122,0.15);margin:20px auto 0;position:relative;overflow:hidden}
+.loading-bar::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gold);animation:loadslide 1.2s ease-in-out infinite}
+@keyframes loadslide{0%{left:-100%}100%{left:100%}}
+
+/* BOAT CARD */
+.boat-card{background:var(--noir);border:0.5px solid rgba(184,169,122,0.15);position:relative;overflow:hidden;transition:border-color 0.3s}
+.boat-card:hover{border-color:rgba(184,169,122,0.5)}
+.card-carousel{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#111}
+.card-carousel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.5s}
+.card-carousel img.active{opacity:1}
+.carousel-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2}
+.carousel-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:background 0.3s}
+.carousel-dot.active{background:var(--gold)}
+.carousel-prev,.carousel-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:var(--gold);font-size:1rem;width:32px;height:32px;cursor:pointer;z-index:2;display:none;align-items:center;justify-content:center}
+.card-carousel:hover .carousel-prev,.card-carousel:hover .carousel-next{display:flex}
+.carousel-prev{left:8px}.carousel-next{right:8px}
+.card-body{padding:22px 24px 20px}
+.card-type-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.card-type{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.55rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold)}
+.card-capacity{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.55rem;letter-spacing:0.3em;color:rgba(255,255,255,0.5)}
+.card-name{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.4rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blanc);margin-bottom:2px;line-height:1.1}
+.card-brand{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.6rem;letter-spacing:0.3em;color:rgba(255,255,255,0.4);margin-bottom:14px}
+.card-rule{height:0.5px;background:rgba(184,169,122,0.2);margin-bottom:14px}
+.card-size{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.65rem;letter-spacing:0.15em;color:rgba(255,255,255,0.6);margin-bottom:12px}
+.card-pricing{margin-bottom:16px}
+.card-price-label{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.55rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.price-seasons{display:flex;flex-wrap:wrap;gap:6px}
+.price-chip{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.6rem;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.05);border:0.5px solid rgba(184,169,122,0.2);padding:3px 8px}
+.card-includes-toggle{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.58rem;letter-spacing:0.3em;color:rgba(255,255,255,0.4);cursor:pointer;background:none;border:none;text-decoration:underline;text-underline-offset:3px;margin-bottom:14px;display:block}
+.includes-panel{display:none;background:rgba(255,255,255,0.03);border:0.5px solid rgba(184,169,122,0.1);padding:12px 14px;margin-bottom:14px}
+.includes-panel.open{display:block}
+.incl-row{display:flex;gap:16px}
+.incl-col{flex:1}
+.incl-label{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.52rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.incl-items{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.62rem;color:rgba(255,255,255,0.6);line-height:1.7}
+.card-actions{display:flex;gap:8px;margin-top:4px}
+.btn-wa-boat{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;border:0.5px solid var(--gold);color:var(--gold);font-family:'Poppins',sans-serif;font-weight:300;font-size:0.58rem;letter-spacing:0.45em;text-transform:uppercase;padding:10px 16px;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.btn-wa-boat:hover{background:var(--gold);color:var(--noir)}
+
+/* WA MODAL */
+#wa-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:24px}
+#wa-modal.open{display:flex}
+.wa-modal-box{background:#0f0f0f;border:0.5px solid rgba(184,169,122,0.3);max-width:520px;width:100%;padding:40px}
+.wa-modal-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.3rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:6px}
+.wa-modal-sub{font-family:'Poppins',sans-serif;font-weight:300;font-size:0.65rem;color:rgba(255,255,255,0.4);margin-bottom:24px}
+.wa-modal-msg{background:rgba(255,255,255,0.04);border:0.5px solid rgba(184,169,122,0.2);padding:20px;font-family:'Poppins',sans-serif;font-weight:300;font-size:0.78rem;line-height:1.9;color:rgba(255,255,255,0.8);margin-bottom:20px;white-space:pre-line}
+.wa-modal-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-wa-send{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:var(--noir);font-family:'Poppins',sans-serif;font-weight:300;font-size:0.62rem;letter-spacing:0.45em;text-transform:uppercase;padding:12px 20px;text-decoration:none;transition:opacity 0.3s}
+.btn-wa-send:hover{opacity:0.85}
+.btn-wa-copy{background:transparent;border:0.5px solid rgba(255,255,255,0.2);color:var(--blanc);font-family:'Poppins',sans-serif;font-weight:300;font-size:0.62rem;letter-spacing:0.45em;text-transform:uppercase;padding:12px 18px;cursor:pointer}
+.btn-wa-close{background:none;border:none;color:rgba(255,255,255,0.3);font-size:0.62rem;letter-spacing:0.45em;text-transform:uppercase;cursor:pointer;font-family:'Poppins',sans-serif;font-weight:300}
+
+/* TOAST */
+#toast{position:fixed;bottom:32px;right:32px;background:var(--gold);color:var(--noir);font-family:'Poppins',sans-serif;font-weight:300;font-size:0.62rem;letter-spacing:0.3em;padding:12px 24px;transform:translateY(80px);opacity:0;transition:all 0.3s;z-index:3000;pointer-events:none}
+#toast.show{transform:translateY(0);opacity:1}
+
+@media(max-width:900px){#fleet-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){main{padding:24px 20px}#topbar{padding:14px 20px}.filter-grid{grid-template-columns:1fr 1fr}#fleet-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <div class="logo-wrap">
+    <div class="logo-main">INFINITY</div>
+    <div class="logo-rule"></div>
+    <div class="logo-sub">BOATS IBIZA</div>
+  </div>
+  <div class="topbar-right">
+    <select class="lang-select" id="lang-select" onchange="setLang(this.value)">
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+      <option value="fr">FR</option>
+      <option value="it">IT</option>
+    </select>
+    <a class="wa-curious" onclick="openWaModal(null)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span id="lbl-curious">CURIOUS?</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="section-eyebrow" id="lbl-eyebrow">IBIZA · MEDITERRANEAN · 2026</div>
+  <h1 class="section-title" id="lbl-title">THE FLEET</h1>
+  <p class="section-italic" id="lbl-sub">Select your vessel. Confirm in minutes.</p>
+
+  <div id="filter-bar">
+    <div class="filter-grid">
+      <div class="filter-group">
+        <label id="lbl-ftype">Type</label>
+        <select id="f-type" onchange="applyFilters()">
+          <option value="">All types</option>
+          <option value="Catamaran">Catamaran</option>
+          <option value="Speedboat">Speedboat</option>
+          <option value="Yacht">Yacht</option>
+          <option value="Motorboat">Motorboat</option>
+          <option value="Sailboat">Sailboat</option>
+          <option value="RIB">RIB</option>
+          <option value="Superyacht">Superyacht</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label id="lbl-fcap">Max guests</label>
+        <select id="f-capacity" onchange="applyFilters()">
+          <option value="">All</option>
+          <option value="6">Up to 6</option>
+          <option value="10">Up to 10</option>
+          <option value="14">Up to 14</option>
+          <option value="20">Up to 20</option>
+          <option value="99">20+</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label id="lbl-fmin">Min price (€)</label>
+        <input type="number" id="f-min-price" placeholder="0" oninput="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <label id="lbl-fmax">Max price (€)</label>
+        <input type="number" id="f-max-price" placeholder="∞" oninput="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <label id="lbl-fsize">Min size (m)</label>
+        <input type="number" id="f-size" placeholder="0" oninput="applyFilters()">
+      </div>
+    </div>
+    <div class="filter-actions">
+      <span class="results-count" id="results-count"></span>
+      <button class="btn-reset" onclick="resetFilters()" id="lbl-reset">RESET FILTERS</button>
+      <div class="sort-wrap">
+        <span class="sort-label" id="lbl-sortby">SORT BY</span>
+        <select class="sort-select" id="sort-select" onchange="applyFilters()">
+          <option value="price-asc">Price ↑</option>
+          <option value="price-desc">Price ↓</option>
+          <option value="size-asc">Size ↑</option>
+          <option value="size-desc">Size ↓</option>
+          <option value="capacity">Capacity</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="fleet-grid">
+    <div class="state-box">
+      <div class="st-title">LOADING FLEET</div>
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+</main>
+
+<!-- WA MODAL -->
+<div id="wa-modal">
+  <div class="wa-modal-box">
+    <div class="wa-modal-title" id="lbl-wa-title">BOOK A VESSEL</div>
+    <div class="wa-modal-sub" id="lbl-wa-sub">Copy this message and send it on WhatsApp</div>
+    <div class="wa-modal-msg" id="wa-msg-text"></div>
+    <div class="wa-modal-actions">
+      <a class="btn-wa-send" id="wa-send-link" href="#" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span id="lbl-wa-open">OPEN WHATSAPP</span>
+      </a>
+      <button class="btn-wa-copy" onclick="copyWaMsg()" id="lbl-wa-copy">COPY MESSAGE</button>
+      <button class="btn-wa-close" onclick="closeWaModal()" id="lbl-wa-close">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const WA_NUMBER='34692186777';
+let fleet=[];
+let currentLang='en';
+
+/* i18n */
+const i18n={
+  en:{curious:'CURIOUS?',eyebrow:'IBIZA · MEDITERRANEAN · 2026',title:'THE FLEET',sub:'Select your vessel. Confirm in minutes.',ftype:'Type',fcap:'Max guests',fmin:'Min price (€)',fmax:'Max price (€)',fsize:'Min size (m)',reset:'RESET FILTERS',sortby:'SORT BY',empty:'NO VESSELS',emptysub:'The fleet is being updated. Check back soon.',loading:'LOADING FLEET',results:'{n} vessels',incl:'Inclusions / Exclusions',inclLbl:'INCLUDED',exclLbl:'NOT INCLUDED',guests:'{n} guests',length:'{m} m · {ft} ft',waTitle:'BOOK A VESSEL',waSub:'Copy this message and send it on WhatsApp',waOpen:'OPEN WHATSAPP',waCopy:'COPY MESSAGE',waClose:'CLOSE',waMsg:'Hi, my name is [Name]. I am interested in booking a boat for this date [Date], we are [Number of people], and our budget is [€ Budget]. I have a preference: {pref}\n\nThanks!',waGeneral:'(send a screenshot of your favourite boat)'},
+  es:{curious:'¿INTERESADO?',eyebrow:'IBIZA · MEDITERRÁNEO · 2026',title:'LA FLOTA',sub:'Elige tu embarcación. Confirmación en minutos.',ftype:'Tipo',fcap:'Personas máx.',fmin:'Precio mín. (€)',fmax:'Precio máx. (€)',fsize:'Eslora mín. (m)',reset:'RESETEAR FILTROS',sortby:'ORDENAR POR',empty:'SIN BARCOS',emptysub:'La flota está siendo actualizada. Vuelve pronto.',loading:'CARGANDO FLOTA',results:'{n} barcos',incl:'Incluye / No incluye',inclLbl:'INCLUIDO',exclLbl:'NO INCLUIDO',guests:'{n} personas',length:'{m} m · {ft} ft',waTitle:'RESERVAR UN BARCO',waSub:'Copia este mensaje y envíalo por WhatsApp',waOpen:'ABRIR WHATSAPP',waCopy:'COPIAR MENSAJE',waClose:'CERRAR',waMsg:'Hola, me llamo [Nombre]. Estoy interesado en reservar un barco para esta fecha [Fecha], somos [Número de personas] y nuestro presupuesto es [€ Presupuesto]. Mi preferencia es: {pref}\n\n¡Gracias!',waGeneral:'(envía una captura de tu barco favorito)'},
+  fr:{curious:'CURIEUX?',eyebrow:'IBIZA · MÉDITERRANÉE · 2026',title:'LA FLOTTE',sub:'Choisissez votre bateau. Confirmation en quelques minutes.',ftype:'Type',fcap:'Personnes max',fmin:'Prix min (€)',fmax:'Prix max (€)',fsize:'Taille min (m)',reset:'RÉINITIALISER',sortby:'TRIER PAR',empty:'AUCUN BATEAU',emptysub:'La flotte est en cours de mise à jour.',loading:'CHARGEMENT',results:'{n} bateaux',incl:'Inclus / Non inclus',inclLbl:'INCLUS',exclLbl:'NON INCLUS',guests:'{n} personnes',length:'{m} m · {ft} ft',waTitle:'RÉSERVER UN BATEAU',waSub:'Copiez ce message et envoyez-le sur WhatsApp',waOpen:'OUVRIR WHATSAPP',waCopy:'COPIER LE MESSAGE',waClose:'FERMER',waMsg:'Bonjour, je m\'appelle [Prénom]. Je suis intéressé par la location d\'un bateau pour cette date [Date], nous sommes [Nombre de personnes] et notre budget est [€ Budget]. Ma préférence est : {pref}\n\nMerci !',waGeneral:'(envoyez une capture d\'écran de votre bateau préféré)'},
+  it:{curious:'CURIOSI?',eyebrow:'IBIZA · MEDITERRANEO · 2026',title:'LA FLOTTA',sub:'Scegli la tua imbarcazione. Conferma in pochi minuti.',ftype:'Tipo',fcap:'Ospiti max',fmin:'Prezzo min (€)',fmax:'Prezzo max (€)',fsize:'Lunghezza min (m)',reset:'AZZERA FILTRI',sortby:'ORDINA PER',empty:'NESSUNA BARCA',emptysub:'La flotta è in aggiornamento.',loading:'CARICAMENTO',results:'{n} barche',incl:'Incluso / Escluso',inclLbl:'INCLUSO',exclLbl:'ESCLUSO',guests:'{n} ospiti',length:'{m} m · {ft} ft',waTitle:'PRENOTA UNA BARCA',waSub:'Copia questo messaggio e invialo su WhatsApp',waOpen:'APRI WHATSAPP',waCopy:'COPIA MESSAGGIO',waClose:'CHIUDI',waMsg:'Salve, mi chiamo [Nome]. Sono interessato a noleggiare una barca per questa data [Data], siamo [Numero di persone] e il nostro budget è [€ Budget]. La mia preferenza è: {pref}\n\nGrazie!',waGeneral:'(invia uno screenshot della tua barca preferita)'}
+};
+function tr(key,vars={}){let s=(i18n[currentLang]||i18n.en)[key]||(i18n.en[key]||key);Object.keys(vars).forEach(k=>{s=s.replaceAll('{'+k+'}',vars[k])});return s;}
+
+function setLang(lang){
+  currentLang=lang;
+  document.getElementById('lbl-curious').textContent=tr('curious');
+  document.getElementById('lbl-eyebrow').textContent=tr('eyebrow');
+  document.getElementById('lbl-title').textContent=tr('title');
+  document.getElementById('lbl-sub').textContent=tr('sub');
+  document.getElementById('lbl-ftype').textContent=tr('ftype');
+  document.getElementById('lbl-fcap').textContent=tr('fcap');
+  document.getElementById('lbl-fmin').textContent=tr('fmin');
+  document.getElementById('lbl-fmax').textContent=tr('fmax');
+  document.getElementById('lbl-fsize').textContent=tr('fsize');
+  document.getElementById('lbl-reset').textContent=tr('reset');
+  document.getElementById('lbl-sortby').textContent=tr('sortby');
+  document.getElementById('lbl-wa-title').textContent=tr('waTitle');
+  document.getElementById('lbl-wa-sub').textContent=tr('waSub');
+  document.getElementById('lbl-wa-open').textContent=tr('waOpen');
+  document.getElementById('lbl-wa-copy').textContent=tr('waCopy');
+  document.getElementById('lbl-wa-close').textContent=tr('waClose');
+  applyFilters();
+}
+
+/* Load fleet.json */
+async function loadFleet(){
+  try{
+    const r=await fetch('./fleet.json?v='+Date.now());
+    const d=await r.json();
+    fleet=d.boats||[];
+  }catch(e){fleet=[];}
+  applyFilters();
+}
+
+function getMinPrice(b){if(!b.pricing||!b.pricing.length)return 0;const ps=b.pricing.map(p=>+p.price).filter(p=>p>0);return ps.length?Math.min(...ps):0;}
+
+function applyFilters(){
+  const type=document.getElementById('f-type').value;
+  const cap=parseInt(document.getElementById('f-capacity').value)||0;
+  const minP=parseFloat(document.getElementById('f-min-price').value)||0;
+  const maxP=parseFloat(document.getElementById('f-max-price').value)||Infinity;
+  const minSz=parseFloat(document.getElementById('f-size').value)||0;
+  const sort=document.getElementById('sort-select').value;
+  let filtered=fleet.filter(b=>{
+    if(type&&b.type!==type)return false;
+    if(cap&&b.capacity>cap)return false;
+    if(b.length_m<minSz)return false;
+    const mp=getMinPrice(b);
+    if(mp>0&&(mp<minP||mp>maxP))return false;
+    return true;
+  });
+  filtered.sort((a,b2)=>{
+    if(sort==='price-asc')return getMinPrice(a)-getMinPrice(b2);
+    if(sort==='price-desc')return getMinPrice(b2)-getMinPrice(a);
+    if(sort==='size-asc')return a.length_m-b2.length_m;
+    if(sort==='size-desc')return b2.length_m-a.length_m;
+    if(sort==='capacity')return b2.capacity-a.capacity;
+    return 0;
+  });
+  document.getElementById('results-count').textContent=tr('results',{n:filtered.length});
+  renderCards(filtered);
+}
+
+function resetFilters(){
+  ['f-type','f-capacity'].forEach(id=>document.getElementById(id).value='');
+  ['f-min-price','f-max-price','f-size'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('sort-select').value='price-asc';
+  applyFilters();
+}
+
+function renderCards(boats){
+  const grid=document.getElementById('fleet-grid');grid.innerHTML='';
+  if(!boats.length){
+    grid.innerHTML=`<div class="state-box"><div class="st-title">${tr('empty')}</div><p class="st-sub">${tr('emptysub')}</p></div>`;
+    return;
+  }
+  boats.forEach(b=>grid.appendChild(createCard(b)));
+}
+
+const carouselState={};
+function createCard(boat){
+  const card=document.createElement('div');card.className='boat-card';
+  const imgs=boat.images&&boat.images.length?boat.images:[];
+  const lm=boat.length_m||0;const lft=boat.length_ft||+(lm*3.28084).toFixed(1);
+  const priceChips=boat.pricing&&boat.pricing.length?boat.pricing.map(p=>`<span class="price-chip">${p.season}: €${Number(p.price).toLocaleString()}</span>`).join(''):'<span class="price-chip">—</span>';
+  let carousel='';
+  if(imgs.length){
+    carousel=`<div class="card-carousel" id="cc-${boat.id}">${imgs.map((img,i)=>`<img src="${img}" class="${i===0?'active':''}" alt="${boat.name}">`).join('')}${imgs.length>1?`<button class="carousel-prev" onclick="slide('${boat.id}',-1,event)">‹</button><button class="carousel-next" onclick="slide('${boat.id}',1,event)">›</button><div class="carousel-dots">${imgs.map((_,i)=>`<div class="carousel-dot ${i===0?'active':''}" onclick="gotoSlide('${boat.id}',${i},event)"></div>`).join('')}</div>`:''}</div>`;
+  }else{
+    carousel=`<div class="card-carousel" style="display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.15);font-size:0.55rem;letter-spacing:0.3em">NO IMAGE</div>`;
+  }
+  const waMsg=buildMsg(boat.name);
+  const waUrl=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}`;
+  const waSvg=`<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>`;
+  card.innerHTML=`${carousel}<div class="card-body"><div class="card-type-row"><span class="card-type">${boat.type||''}</span><span class="card-capacity">${tr('guests',{n:boat.capacity||'—'})}</span></div><div class="card-name">${boat.name}</div><div class="card-brand">${boat.brand||''}</div><div class="card-rule"></div>${lm?`<div class="card-size">${tr('length',{m:lm,ft:lft})}</div>`:''}<div class="card-pricing"><div class="card-price-label">SEASONAL PRICING</div><div class="price-seasons">${priceChips}</div></div><button class="card-includes-toggle" onclick="toggleIncl('${boat.id}',this)">${tr('incl')} ▾</button><div class="includes-panel" id="incl-${boat.id}"><div class="incl-row"><div class="incl-col"><div class="incl-label">${tr('inclLbl')}</div><div class="incl-items">${(boat.includes||'—').split(',').map(x=>x.trim()).join('<br>')}</div></div><div class="incl-col"><div class="incl-label">${tr('exclLbl')}</div><div class="incl-items">${(boat.excludes||'—').split(',').map(x=>x.trim()).join('<br>')}</div></div></div></div><div class="card-actions"><a class="btn-wa-boat" href="${waUrl}" target="_blank">${waSvg} ${tr('curious')}</a></div></div>`;
+  return card;
+}
+
+function slide(id,dir,e){e.stopPropagation();const cc=document.getElementById('cc-'+id);const imgs=cc.querySelectorAll('img');const dots=cc.querySelectorAll('.carousel-dot');if(!imgs.length)return;if(carouselState[id]===undefined)carouselState[id]=0;imgs[carouselState[id]].classList.remove('active');dots[carouselState[id]]&&dots[carouselState[id]].classList.remove('active');carouselState[id]=(carouselState[id]+dir+imgs.length)%imgs.length;imgs[carouselState[id]].classList.add('active');dots[carouselState[id]]&&dots[carouselState[id]].classList.add('active');}
+function gotoSlide(id,i,e){e.stopPropagation();const cc=document.getElementById('cc-'+id);const imgs=cc.querySelectorAll('img');const dots=cc.querySelectorAll('.carousel-dot');if(carouselState[id]!==undefined){imgs[carouselState[id]].classList.remove('active');dots[carouselState[id]]&&dots[carouselState[id]].classList.remove('active');}carouselState[id]=i;imgs[i].classList.add('active');dots[i]&&dots[i].classList.add('active');}
+function toggleIncl(id,btn){const p=document.getElementById('incl-'+id);p.classList.toggle('open');btn.textContent=p.classList.contains('open')?tr('incl')+' ▴':tr('incl')+' ▾';}
+
+function buildMsg(boatName){const pref=boatName?`${boatName} — please send me more details`:tr('waGeneral');return tr('waMsg',{pref});}
+function openWaModal(boatName){const msg=buildMsg(boatName);document.getElementById('wa-msg-text').textContent=msg;document.getElementById('wa-send-link').href=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;document.getElementById('wa-modal').classList.add('open');}
+function closeWaModal(){document.getElementById('wa-modal').classList.remove('open');}
+function copyWaMsg(){navigator.clipboard.writeText(document.getElementById('wa-msg-text').textContent).catch(()=>{});showToast('Message copied.');}
+document.getElementById('wa-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeWaModal();});
+
+function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3000);}
+
+loadFleet();
+</script>
+</body>
+</html>
