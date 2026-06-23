@@ -1,4 +1,254 @@
-{
-  "boats": [],
-  "lastUpdated": "2026-06-22"
-}
+[
+  {
+    "id": "baia-80-boss-sea",
+    "name": "Baia 80",
+    "charter_name": "BOSS SEA",
+    "charter_code": "S",
+    "brand": "Baia",
+    "type": "Yacht",
+    "length_m": 23.5,
+    "length_ft": 80,
+    "beam_m": 5.96,
+    "draft_m": 1.2,
+    "engine": "2 x MTU16V2000",
+    "fuel_consumption_lh": 500,
+    "capacity": 12,
+    "crew": 2,
+    "cabins": 3,
+    "cabin_detail": "2 dobles + 1 triple",
+    "bathrooms": 3,
+    "port_base": "Marina Botafoc",
+    "mooring": 701,
+    "rates": {
+      "low_season": { "label": "Resto del año", "price_eur_day": 4900 },
+      "mid_season": { "label": "Junio y Septiembre", "price_eur_day": 5900 },
+      "high_season": { "label": "Julio y Agosto", "price_eur_day": 6900 }
+    },
+    "includes": [
+      "Patrón", "Marinera", "Agua", "Refrescos", "Cervezas",
+      "Amarre en puerto base", "Equipo de seguridad homologado",
+      "Seguro a todo riesgo", "Equipo de snorkel", "Paddle surf",
+      "Ducha", "Toallas", "Equipo de música", "Toldo", "Limpieza final"
+    ],
+    "excludes": [
+      "Combustible", "Amarre fuera del puerto base", "APA (30%)", "IVA (21%)"
+    ],
+    "extras": ["Moto de agua", "Foil Surf", "Kayak"],
+    "payment_conditions": "50% reserva, resto al embarque + depósito APA (30%)",
+    "images": [
+      "images/baia-80/baia-80-01.jpg",
+      "images/baia-80/baia-80-02.jpg",
+      "images/baia-80/baia-80-03.jpg"
+    ]
+  },
+  {
+    "id": "cap-camarat-90-thymar",
+    "name": "Cap Camarat 9.0 WA",
+    "charter_name": "THYMAR",
+    "charter_code": "S",
+    "brand": "Jeanneau",
+    "type": "Motorboat",
+    "length_m": 9,
+    "length_ft": 29.5,
+    "beam_m": 3,
+    "draft_m": 0.6,
+    "engine": "2 x 250 CV",
+    "fuel_consumption_lh": 90,
+    "capacity": 9,
+    "crew": 1,
+    "cabins": 2,
+    "bathrooms": 1,
+    "port_base": "Marina Botafoc",
+    "mooring": 109,
+    "rates": {
+      "low_season": { "label": "Resto del año", "price_eur_day": 650 },
+      "mid_season": { "label": "Junio y Septiembre", "price_eur_day": 750 },
+      "high_season": { "label": "Julio y Agosto", "price_eur_day": 900 }
+    },
+    "includes": [
+      "Agua", "Refrescos", "Cervezas", "Amarre en puerto base",
+      "Equipo de seguridad homologado", "Seguro a todo riesgo",
+      "Equipo de snorkel", "Ducha", "Toallas", "Equipo de música",
+      "Toldo", "Limpieza final"
+    ],
+    "excludes": [
+      "Patrón (200€)", "Combustible", "Amarre fuera del puerto base",
+      "Horas extra (100€/hora)", "IVA (21%)"
+    ],
+    "extras": ["Seabob", "Foil Surf", "Kayak"],
+    "payment_conditions": "50% reserva, resto al embarque",
+    "images": [
+      "images/cap-camarat-90/cap-camarat-90-01.jpg",
+      "images/cap-camarat-90/cap-camarat-90-02.jpg",
+      "images/cap-camarat-90/cap-camarat-90-03.jpg"
+    ]
+  },
+  {
+    "id": "de-antonio-33-oceans-911",
+    "name": "De Antonio Yachts D33 Open",
+    "charter_name": "OCEANS 911",
+    "charter_code": "S",
+    "brand": "De Antonio Yachts",
+    "type": "Open Yacht",
+    "length_m": 11,
+    "length_ft": 36,
+    "beam_m": 3.5,
+    "draft_m": 0.8,
+    "engine": "2 x 300 CV",
+    "fuel_consumption_lh": 130,
+    "capacity": 9,
+    "crew": 1,
+    "cabins": 1,
+    "bathrooms": 1,
+    "port_base": "Marina Botafoc",
+    "mooring": 236,
+    "rates": {
+      "low_season": { "label": "Resto del año", "price_eur_day": 900 },
+      "mid_season": { "label": "Junio y Septiembre", "price_eur_day": 1100 },
+      "high_season": { "label": "Julio y Agosto", "price_eur_day": 1350 }
+    },
+    "includes": [
+      "Agua", "Refrescos", "Cervezas", "Amarre en puerto base",
+      "Equipo de seguridad homologado", "Seguro a todo riesgo",
+      "Equipo de snorkel", "Ducha", "Toallas", "Equipo de música",
+      "Toldo", "Limpieza final"
+    ],
+    "excludes": [
+      "Patrón (200€)", "Combustible", "Amarre fuera del puerto base",
+      "Horas extra (100€/hora)", "IVA (21%)"
+    ],
+    "extras": ["Seabob", "Foil Surf", "Kayak"],
+    "payment_conditions": "50% reserva, resto al embarque",
+    "images": [
+      "images/de-antonio-33-oceans-911/d33-oceans-01.jpg",
+      "images/de-antonio-33-oceans-911/d33-oceans-02.jpg",
+      "images/de-antonio-33-oceans-911/d33-oceans-03.jpg"
+    ]
+  },
+  {
+    "id": "de-antonio-33-seea-one",
+    "name": "De Antonio Yachts D33 Open",
+    "charter_name": "SEEA ONE",
+    "charter_code": "S",
+    "brand": "De Antonio Yachts",
+    "type": "Open Yacht",
+    "length_m": 11,
+    "length_ft": 36,
+    "beam_m": 3.5,
+    "draft_m": 0.8,
+    "engine": "2 x 300 CV",
+    "fuel_consumption_lh": 130,
+    "capacity": 9,
+    "crew": 1,
+    "cabins": 1,
+    "bathrooms": 1,
+    "port_base": "Marina Botafoc",
+    "mooring": 238,
+    "rates": {
+      "low_season": { "label": "Resto del año", "price_eur_day": 900 },
+      "mid_season": { "label": "Junio y Septiembre", "price_eur_day": 1100 },
+      "high_season": { "label": "Julio y Agosto", "price_eur_day": 1350 }
+    },
+    "includes": [
+      "Agua", "Refrescos", "Cervezas", "Amarre en puerto base",
+      "Equipo de seguridad homologado", "Seguro a todo riesgo",
+      "Equipo de snorkel", "Paddle surf", "Ducha", "Toallas",
+      "Equipo de música", "Toldo", "Limpieza final"
+    ],
+    "excludes": [
+      "Patrón (200€)", "Combustible", "Amarre fuera del puerto base",
+      "Horas extra (100€/hora)", "IVA (21%)"
+    ],
+    "extras": ["Seabob", "Foil Surf", "Kayak"],
+    "payment_conditions": "50% reserva, resto al embarque",
+    "images": [
+      "images/de-antonio-33-seea-one/d33-seea-01.jpg",
+      "images/de-antonio-33-seea-one/d33-seea-02.jpg",
+      "images/de-antonio-33-seea-one/d33-seea-03.jpg"
+    ]
+  },
+  {
+    "id": "de-antonio-36-jarvis",
+    "name": "De Antonio Yachts D36 Open",
+    "charter_name": "JARVIS",
+    "charter_code": "S",
+    "brand": "De Antonio Yachts",
+    "type": "Open Yacht",
+    "length_m": 11.5,
+    "length_ft": 37.7,
+    "beam_m": 3.4,
+    "draft_m": 0.6,
+    "engine": "2 x 300 CV",
+    "fuel_consumption_lh": 130,
+    "capacity": 11,
+    "crew": 1,
+    "cabins": 2,
+    "bathrooms": 1,
+    "port_base": "Marina Botafoc",
+    "mooring": 229,
+    "rates": {
+      "low_season": { "label": "Resto del año", "price_eur_day": 1100 },
+      "mid_season": { "label": "Junio y Septiembre", "price_eur_day": 1350 },
+      "high_season": { "label": "Julio y Agosto", "price_eur_day": 1600 }
+    },
+    "includes": [
+      "Agua", "Refrescos", "Cervezas", "Amarre en puerto base",
+      "Equipo de seguridad homologado", "Seguro a todo riesgo",
+      "Equipo de snorkel", "Paddle surf", "Ducha", "Toallas",
+      "Equipo de música", "Toldo", "Limpieza final"
+    ],
+    "excludes": [
+      "Patrón (200€)", "Combustible", "Amarre fuera del puerto base",
+      "Horas extra (150€/hora)", "IVA (21%)"
+    ],
+    "extras": ["Seabob", "Foil Surf", "Kayak"],
+    "payment_conditions": "50% reserva, resto al embarque",
+    "images": [
+      "images/de-antonio-36-jarvis/d36-jarvis-01.jpg",
+      "images/de-antonio-36-jarvis/d36-jarvis-02.jpg",
+      "images/de-antonio-36-jarvis/d36-jarvis-03.jpg"
+    ]
+  },
+  {
+    "id": "de-antonio-36-playyacht-iv",
+    "name": "De Antonio Yachts D36 Open",
+    "charter_name": "PLAY YACHT IV",
+    "charter_code": "S",
+    "brand": "De Antonio Yachts",
+    "type": "Open Yacht",
+    "length_m": 11.5,
+    "length_ft": 37.7,
+    "beam_m": 3.4,
+    "draft_m": 0.6,
+    "engine": "2 x 300 CV",
+    "fuel_consumption_lh": 130,
+    "capacity": 11,
+    "crew": 1,
+    "cabins": 2,
+    "bathrooms": 1,
+    "port_base": "Marina Botafoc",
+    "mooring": 307,
+    "rates": {
+      "low_season": { "label": "Resto del año", "price_eur_day": 1100 },
+      "mid_season": { "label": "Junio y Septiembre", "price_eur_day": 1350 },
+      "high_season": { "label": "Julio y Agosto", "price_eur_day": 1600 }
+    },
+    "includes": [
+      "Agua", "Refrescos", "Cervezas", "Amarre en puerto base",
+      "Equipo de seguridad homologado", "Seguro a todo riesgo",
+      "Equipo de snorkel", "Paddle surf", "Ducha", "Toallas",
+      "Equipo de música", "Toldo", "Limpieza final"
+    ],
+    "excludes": [
+      "Patrón (200€)", "Combustible", "Amarre fuera del puerto base",
+      "Horas extra (150€/hora)", "IVA (21%)"
+    ],
+    "extras": ["Seabob", "Foil Surf", "Kayak"],
+    "payment_conditions": "50% reserva, resto al embarque",
+    "images": [
+      "images/de-antonio-36-playyacht-iv/d36-playyacht-01.jpg",
+      "images/de-antonio-36-playyacht-iv/d36-playyacht-02.jpg",
+      "images/de-antonio-36-playyacht-iv/d36-playyacht-03.jpg"
+    ]
+  }
+]
